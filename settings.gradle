@@ -13,4 +13,8 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Poké"
+
+// main
 include ':app'
+// core
+include ':core:data'
