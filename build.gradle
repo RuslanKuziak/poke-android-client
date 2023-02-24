@@ -36,6 +36,10 @@ buildscript {
         okHttpLoggingVersion = '4.9.1'
         retrofitVersion = '2.9.0'
         gsonVersion = '2.8.9'
+
+        // Testing
+        jUnitVersion = '4.13.2'
+        extjUnitVersion = '1.1.5'
     }
 
     dependencies {

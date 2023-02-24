@@ -5,6 +5,7 @@ plugins {
 }
 
 dependencies {
+    implementation project (':domain')
 
     // AndroidX
     implementation "androidx.core:core-ktx:$rootProject.coreKtxVersion"
