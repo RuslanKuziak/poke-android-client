@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.poke.client.R
 import dagger.hilt.android.AndroidEntryPoint
+import poke.features.pokemondetails.PokemonDetailsFragment
 import poke.features.pokemons.list.PokemonListFragment
 
 @AndroidEntryPoint
@@ -18,6 +19,28 @@ class MainFragment : Fragment(R.layout.fragment_home) {
 				R.id.fragment_container,
 				PokemonListFragment.newInstance()
 			)
+		}
+
+		subscribeToResults()
+	}
+
+	private fun subscribeToResults() {
+		childFragmentManager.setFragmentResultListener(
+			PokemonListFragment.SELECTED_ID_KEY,
+			this
+		) { requestKey, result ->
+			when (requestKey) {
+				PokemonListFragment.SELECTED_ID_KEY -> {
+					openPokemonDetails(result.getString(PokemonListFragment.SELECTED_ID_KEY, ""))
+				}
+			}
+		}
+	}
+
+	private fun openPokemonDetails(value: String) {
+		parentFragmentManager.commit {
+			replace(id, PokemonDetailsFragment.newInstance(id = value))
+			addToBackStack("")
 		}
 	}
 

@@ -6,18 +6,18 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.CombinedLoadStates
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.poke.ui.adapter.DividerItemDecoration
 import com.poke.ui.getDrawable
-import com.poke.ui.repeatInViewScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import poke.features.pokemons.R
-import com.poke.ui.adapter.DividerItemDecoration
 import poke.features.pokemons.list.adapter.LoadStateProgressAdapter
 import poke.features.pokemons.list.adapter.PokemonListAdapter
 import poke.features.pokemons.list.extension.isNotLoading
@@ -33,6 +33,8 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemons) {
 		super.onCreate(savedInstanceState)
 
 		adapter = PokemonListAdapter(layoutInflater, onClick = { viewModel.onItemSelected(it) })
+
+		lifecycleScope.launch { viewModel.event.collectLatest { onEventChanged(it) } }
 		lifecycleScope.launch { viewModel.data.collectLatest { adapter.update(it) } }
 	}
 
@@ -53,9 +55,7 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemons) {
 
 		recyclerView.addItemDecoration(DividerItemDecoration(getDrawable(R.drawable.list_divider)))
 
-		adapter.addLoadStateListener {
-			repeatInViewScope { onLoadStateChanged(progress, total, it) }
-		}
+		adapter.addLoadStateListener { onLoadStateChanged(progress, total, it) }
 	}
 
 	private fun onLoadStateChanged(
@@ -67,8 +67,6 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemons) {
 			progressBar.visibility = View.GONE
 			updateHeader(total)
 		}
-
-
 	}
 
 	private fun updateHeader(total: TextView) {
@@ -77,7 +75,19 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemons) {
 		total.text = resources.getQuantityString(R.plurals.total_items, count, count)
 	}
 
+	private fun onEventChanged(event: PokemonListViewModel.Event) {
+		when (event) {
+			is PokemonListViewModel.Event.OnSelected -> {
+				setFragmentResult(
+					SELECTED_ID_KEY,
+					Bundle().apply { putString(SELECTED_ID_KEY, event.id) })
+			}
+		}
+	}
+
 	companion object {
+		const val SELECTED_ID_KEY = "selected_id_key"
+
 		fun newInstance() = PokemonListFragment()
 	}
 }

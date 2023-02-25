@@ -8,10 +8,7 @@ import androidx.paging.map
 import com.poke.domain.request.GetListRequest
 import com.poke.domain.usecase.GetPokemonsPagedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,6 +18,9 @@ private const val PAGE_SIZE = 25
 class PokemonListViewModel @Inject constructor(
 	private val getPokemonsPagedUseCase: GetPokemonsPagedUseCase
 ) : ViewModel() {
+
+	private val _event = MutableSharedFlow<Event>()
+	val event = _event.asSharedFlow()
 
 	private val _data = MutableStateFlow<PagingData<PokemonItemModel>>(PagingData.empty())
 	val data = _data.asStateFlow()
@@ -34,8 +34,7 @@ class PokemonListViewModel @Inject constructor(
 			return
 		}
 
-		viewModelScope.launch {
-		}
+		viewModelScope.launch { _event.emit(Event.OnSelected(id)) }
 	}
 
 	private fun executeGetPokemons() = viewModelScope.launch {
@@ -45,6 +44,10 @@ class PokemonListViewModel @Inject constructor(
 			.collectLatest {
 				_data.value = it
 			}
+	}
+
+	sealed interface Event {
+		data class OnSelected(val id: String) : Event
 	}
 
 }

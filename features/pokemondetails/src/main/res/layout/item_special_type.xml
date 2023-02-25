@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="@dimen/type_max_width"
+		android:layout_height="wrap_content">
+
+	<androidx.appcompat.widget.AppCompatTextView
+			android:id="@+id/text"
+			style="@style/Widget.Poke.Text.Type"
+			android:layout_width="@dimen/type_max_width"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:paddingHorizontal="@dimen/default_padding"
+			android:paddingVertical="@dimen/small_padding"
+			tools:background="@color/teal_700"
+			tools:text="Water" />
+
+</FrameLayout>

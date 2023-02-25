@@ -42,6 +42,7 @@ dependencies {
     implementation project(':core:ui')
     // Features
     implementation project(':features:pokemons')
+    implementation project(':features:pokemondetails')
 
     // Dependency injection
     implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"

@@ -3,6 +3,9 @@ package poke.core.data.remote.model
 import com.google.gson.annotations.SerializedName
 
 class PokeFormResponse {
+	@SerializedName("name")
+	val name: String? = null
+
 	@SerializedName("sprites")
 	val sprites: SpritesResponse? = null
 

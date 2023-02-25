@@ -2,8 +2,8 @@
 <resources>
 
 	<plurals name="total_items">
-		<item quantity="one">%d Pokemon in total</item>
-		<item quantity="other">%d Pokemons in total</item>
+		<item quantity="one">%d Pokemon</item>
+		<item quantity="other">%d Pokemons</item>
 	</plurals>
 
 </resources>

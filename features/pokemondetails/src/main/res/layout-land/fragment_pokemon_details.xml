@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="?android:windowBackground">
+
+	<ProgressBar
+			android:id="@+id/progress"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:layout_marginVertical="@dimen/small_margin"
+			android:visibility="gone"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:visibility="visible" />
+
+	<androidx.appcompat.widget.AppCompatTextView
+			android:id="@+id/title"
+			style="@style/Widget.Poke.Text.Title"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingHorizontal="@dimen/default_padding"
+			android:paddingVertical="@dimen/smallest_padding"
+			app:layout_constraintBottom_toTopOf="@+id/image"
+			app:layout_constraintTop_toBottomOf="@+id/progress"
+			app:layout_constraintVertical_chainStyle="packed"
+			tools:text="Awesome Name"
+			tools:visibility="visible" />
+
+	<androidx.appcompat.widget.AppCompatImageView
+			android:id="@+id/image"
+			android:layout_width="@dimen/pokemon_artwork_size"
+			android:layout_height="@dimen/pokemon_artwork_size"
+			app:layout_constraintBottom_toTopOf="@+id/recycler_view"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/title" />
+
+	<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/recycler_view"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingVertical="@dimen/medium_padding"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/image"
+			tools:itemCount="4"
+			tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+			tools:listitem="@layout/item_special_type"
+			tools:spanCount="2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

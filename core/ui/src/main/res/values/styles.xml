@@ -14,4 +14,16 @@
 		<item name="android:background">@color/gray_light</item>
 	</style>
 
+	<style name="Widget.Poke.Text.Title" parent="Widget.Poke.Text">
+		<item name="android:gravity">center_vertical|center_horizontal</item>
+		<item name="android:textSize">32sp</item>
+	</style>
+
+	<style name="Widget.Poke.Text.Type" parent="Widget.Poke.Text">
+		<item name="android:textColor">@color/gray_light</item>
+		<item name="android:gravity">center_vertical|center_horizontal</item>
+		<item name="android:textSize">18sp</item>
+		<item name="android:textAllCaps">true</item>
+	</style>
+
 </resources>
