@@ -39,6 +39,12 @@ class MainFragment : Fragment(R.layout.fragment_home) {
 
 	private fun openPokemonDetails(value: String) {
 		parentFragmentManager.commit {
+			setCustomAnimations(
+				poke.core.ui.R.anim.slide_in,
+				poke.core.ui.R.anim.fade_out,
+				poke.core.ui.R.anim.fade_in,
+				poke.core.ui.R.anim.slide_out
+			)
 			replace(id, PokemonDetailsFragment.newInstance(id = value))
 			addToBackStack("")
 		}
