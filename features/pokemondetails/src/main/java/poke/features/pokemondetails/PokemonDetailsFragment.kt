@@ -1,6 +1,9 @@
 package poke.features.pokemondetails
 
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -22,11 +25,14 @@ import kotlinx.coroutines.launch
 import poke.features.pokemondetails.adapter.GridItemDecoration
 import poke.features.pokemondetails.adapter.SpecialTypesAdapter
 import poke.features.pokemondetails.utils.obtainBackgroundDrawable
+import poke.features.pokemondetails.utils.shakeAnimate
 
 @AndroidEntryPoint
 class PokemonDetailsFragment : Fragment(R.layout.fragment_pokemon_details) {
 
+	private val vibrator: Vibrator by lazy { requireActivity().getSystemService(Vibrator::class.java) }
 	private val viewModel by viewModels<PokemonDetailsViewModel>()
+
 	private lateinit var adapter: SpecialTypesAdapter
 
 	private var progress: ProgressBar? = null
@@ -70,6 +76,11 @@ class PokemonDetailsFragment : Fragment(R.layout.fragment_pokemon_details) {
 		val image = requireView().findViewById<ImageView>(R.id.image)
 		image.background = obtainBackgroundDrawable(radius = 16F)
 
+		image.setOnLongClickListener {
+			shakeAnimate(target = it, doOnStart = { vibrateCompat() })
+			return@setOnLongClickListener true
+		}
+
 		setupRecyclerView(result.types)
 
 		ImageLoader.LoadParams()
@@ -102,6 +113,17 @@ class PokemonDetailsFragment : Fragment(R.layout.fragment_pokemon_details) {
 		when (event) {
 			PokemonDetailsViewModel.Event.OnNavigateBack -> parentFragmentManager.popBackStack()
 		}
+	}
+
+	private fun vibrateCompat() {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+			return
+		}
+
+		val effect = VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK)
+
+		vibrator.cancel()
+		vibrator.vibrate(effect)
 	}
 
 	companion object {
