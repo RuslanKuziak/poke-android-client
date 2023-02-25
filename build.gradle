@@ -15,6 +15,7 @@ buildscript {
         // AndroidX UI
         appCompatVersion = '1.6.1'
         constraintLayoutVersion = '2.1.4'
+        recyclerViewVersion = '1.2.1'
         materialVersion = '1.8.0'
 
         // Ktx

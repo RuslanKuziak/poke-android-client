@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<plurals name="total_items">
+		<item quantity="one">%d Pokemon in total</item>
+		<item quantity="other">%d Pokemons in total</item>
+	</plurals>
+
+</resources>

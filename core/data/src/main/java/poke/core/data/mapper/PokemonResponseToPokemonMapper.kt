@@ -2,10 +2,11 @@ package poke.core.data.mapper
 
 import com.poke.domain.model.PokemonItem
 import poke.core.data.remote.model.PokeItemResponse
+import poke.core.data.remote.paging.PokemonsResult
 
-fun PokeItemResponse.toPokeItem() : PokemonItem {
+fun PokemonsResult.toPokeItem() : PokemonItem {
 	return PokemonItem(
-		name = name.orEmpty(),
-		detailsUrl = url.orEmpty()
+		name = item.name.orEmpty(),
+		total = total
 	)
 }

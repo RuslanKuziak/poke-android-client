@@ -12,13 +12,13 @@ private const val TAG = "PokemonsPagingSource"
 class PokemonsPagingSource(
 	private val service: PokeApiService,
 	private val request: GetListRequest
-) : PagingSource<String, PokeItemResponse>() {
+) : PagingSource<String, PokemonsResult>() {
 
-	override fun getRefreshKey(state: PagingState<String, PokeItemResponse>): String? {
+	override fun getRefreshKey(state: PagingState<String, PokemonsResult>): String? {
 		return null
 	}
 
-	override suspend fun load(params: LoadParams<String>): LoadResult<String, PokeItemResponse> {
+	override suspend fun load(params: LoadParams<String>): LoadResult<String, PokemonsResult> {
 		val page = params.key ?: ""
 
 		return try {
@@ -39,7 +39,14 @@ class PokemonsPagingSource(
 			}
 
 			LoadResult.Page(
-				data = values, prevKey = result?.previous, nextKey = result?.next
+				data = values.map {
+					PokemonsResult(
+						total = result?.count ?: 0,
+						item = it
+					)
+				},
+				prevKey = result?.previous,
+				nextKey = result?.next
 			)
 		} catch (ex: Exception) {
 			Log.e(TAG, "Failed to retrieve Pokemons Paged")

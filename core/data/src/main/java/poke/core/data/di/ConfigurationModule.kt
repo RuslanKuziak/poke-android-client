@@ -10,7 +10,7 @@ import javax.inject.Qualifier
 @Module
 object ConfigurationModule {
 
-    private const val BASE_URL = "https://pokeapi.co/api"
+    private const val BASE_URL = "https://pokeapi.co/api/"
 
     @Provides
     @BaseUrl
