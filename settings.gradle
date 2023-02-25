@@ -23,3 +23,4 @@ include ':core:ui'
 include ':domain'
 // Features
 include ':features:pokemons'
+include ':features:pokemondetails'

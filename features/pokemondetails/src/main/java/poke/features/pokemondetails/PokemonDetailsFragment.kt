@@ -1,0 +1,10 @@
+package poke.features.pokemondetails
+
+import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class PokemonDetailsFragment : Fragment() {
+
+
+}
