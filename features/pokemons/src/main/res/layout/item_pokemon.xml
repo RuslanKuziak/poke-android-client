@@ -6,6 +6,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:background="?selectableItemBackground"
+		android:drawableRight="@drawable/arrow_right"
+		android:drawableTint="@color/black_light_alpha_50"
 		android:paddingHorizontal="@dimen/default_padding"
 		android:paddingVertical="@dimen/medium_padding"
 		tools:text="#1 Pikachu" />
