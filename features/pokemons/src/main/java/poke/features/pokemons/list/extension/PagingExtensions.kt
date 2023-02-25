@@ -7,3 +7,7 @@ fun CombinedLoadStates.isNotLoading(): Boolean {
     return prepend is LoadState.NotLoading && prepend.endOfPaginationReached
             || append is LoadState.NotLoading && append.endOfPaginationReached
 }
+
+fun CombinedLoadStates.isLoading(): Boolean {
+    return prepend is LoadState.Loading || append is LoadState.Loading
+}

@@ -18,6 +18,7 @@ import com.poke.domain.model.PokemonForm
 import com.poke.domain.model.TypeSlot
 import com.poke.ui.ImageLoader
 import com.poke.ui.repeatInViewScope
+import com.poke.ui.view.NoConnectionView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
@@ -37,6 +38,7 @@ class PokemonDetailsFragment : Fragment(R.layout.fragment_pokemon_details) {
 
 	private var progress: ProgressBar? = null
 	private var title: TextView? = null
+	private var connection: NoConnectionView? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -52,6 +54,7 @@ class PokemonDetailsFragment : Fragment(R.layout.fragment_pokemon_details) {
 
 		progress = view.findViewById(R.id.progress)
 		title = view.findViewById(R.id.title)
+		connection = view.findViewById(R.id.connection)
 
 		repeatInViewScope { viewModel.state.collectLatest { onUiStateChanged(it) } }
 
@@ -104,9 +107,12 @@ class PokemonDetailsFragment : Fragment(R.layout.fragment_pokemon_details) {
 	private fun onUiStateChanged(state: PokemonDetailsViewModel.UiState) {
 		val progress = progress ?: return
 		val title = title ?: return
+		val connection = connection ?: return
+		connection.retry { viewModel.retry() }
 
 		progress.isVisible = state.isLoading
 		title.isVisible = state.isLoading.not()
+		connection.isVisible = state.hasConnection.not()
 	}
 
 	private fun onEventChanged(event: PokemonDetailsViewModel.Event) {

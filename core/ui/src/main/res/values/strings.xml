@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="opps_no_connection">Oops! Seems like you do not have an active connection.\nWe can\'t load data for this screen.</string>
+	<string name="retry">Retry</string>
+
+</resources>

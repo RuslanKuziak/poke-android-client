@@ -39,4 +39,12 @@
 			tools:itemCount="20"
 			tools:listitem="@layout/item_pokemon" />
 
+	<com.poke.ui.view.NoConnectionView
+			android:id="@+id/connection"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:visibility="gone"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

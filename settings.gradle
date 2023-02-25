@@ -18,6 +18,7 @@ rootProject.name = "Poké"
 include ':app'
 // Core
 include ':core:data'
+include ':core:system'
 include ':core:ui'
 // Domain
 include ':domain'

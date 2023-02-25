@@ -6,6 +6,14 @@
 		android:layout_height="match_parent"
 		android:background="?android:windowBackground">
 
+	<com.poke.ui.view.NoConnectionView
+			android:id="@+id/connection"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:visibility="gone"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
 	<ProgressBar
 			android:id="@+id/progress"
 			android:layout_width="wrap_content"

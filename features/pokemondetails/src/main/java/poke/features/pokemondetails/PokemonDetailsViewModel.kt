@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.poke.domain.model.PokemonForm
 import com.poke.domain.usecase.GetPokemonDetailsUseCase
+import com.poke.system.NetworkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -11,6 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PokemonDetailsViewModel @Inject constructor(
+	private val networkManager: NetworkManager,
 	private val getPokemonDetailsUseCase: GetPokemonDetailsUseCase
 ) : ViewModel() {
 
@@ -32,13 +34,26 @@ class PokemonDetailsViewModel @Inject constructor(
 		}
 
 		id = value
-		executeGetPokemonForm()
+
+		if (verifyConnection()) {
+			executeGetPokemonForm()
+		}
 	}
 
 	fun retry() {
-		_state.update { it.copy(error = false) }
+		if (verifyConnection()) {
+			executeGetPokemonForm()
+		}
+	}
 
-		executeGetPokemonForm()
+	private fun verifyConnection(): Boolean {
+		if (networkManager.hasActiveConnection().not()) {
+			_state.update { it.copy(hasConnection = false) }
+			return false
+		}
+
+		_state.update { it.copy(hasConnection = true) }
+		return true
 	}
 
 	private fun executeGetPokemonForm() {
@@ -48,7 +63,6 @@ class PokemonDetailsViewModel @Inject constructor(
 			_state.update { it.copy(isLoading = false) }
 
 			if (result == null || result.isValid.not()) {
-				_state.update { it.copy(error = true) }
 				return@execute
 			}
 
@@ -56,7 +70,10 @@ class PokemonDetailsViewModel @Inject constructor(
 		})
 	}
 
-	data class UiState(val isLoading: Boolean = false, val error: Boolean = false)
+	data class UiState(
+		val isLoading: Boolean = false,
+		val hasConnection: Boolean = true
+	)
 
 	sealed interface Event {
 		object OnNavigateBack : Event

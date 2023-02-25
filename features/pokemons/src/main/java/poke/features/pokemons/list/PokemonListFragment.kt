@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.poke.ui.adapter.DividerItemDecoration
 import com.poke.ui.getDrawable
+import com.poke.ui.repeatInViewScope
+import com.poke.ui.view.NoConnectionView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -29,6 +31,9 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemons) {
 
 	private lateinit var adapter: PokemonListAdapter
 
+	private var progress: ProgressBar? = null
+	private var connection: NoConnectionView? = null
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
@@ -41,8 +46,10 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemons) {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
+		progress = view.findViewById(R.id.progress)
+		connection = view.findViewById(R.id.connection)
+
 		val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
-		val progress = view.findViewById<ProgressBar>(R.id.progress)
 		val total = view.findViewById<TextView>(R.id.total_count)
 
 		recyclerView.setHasFixedSize(true)
@@ -55,16 +62,26 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemons) {
 
 		recyclerView.addItemDecoration(DividerItemDecoration(getDrawable(R.drawable.list_divider)))
 
-		adapter.addLoadStateListener { onLoadStateChanged(progress, total, it) }
+		repeatInViewScope { viewModel.state.collectLatest { onUiStateChanged(it) } }
+
+		adapter.addLoadStateListener { onLoadStateChanged(total, it) }
+	}
+
+	override fun onDestroyView() {
+		super.onDestroyView()
+
+		progress = null
+		connection = null
 	}
 
 	private fun onLoadStateChanged(
-		progressBar: ProgressBar,
 		total: TextView,
 		state: CombinedLoadStates
 	) {
+		val progress = progress ?: return
+
 		if (state.isNotLoading()) {
-			progressBar.visibility = View.GONE
+			progress.visibility = View.GONE
 			updateHeader(total)
 		}
 	}
@@ -73,6 +90,13 @@ class PokemonListFragment : Fragment(R.layout.fragment_pokemons) {
 		val count = adapter.getTotalItemsCount()
 		total.isVisible = count > 0
 		total.text = resources.getQuantityString(R.plurals.total_items, count, count)
+	}
+
+	private fun onUiStateChanged(state: PokemonListViewModel.UiState) {
+		val connection = connection ?: return
+
+		connection.retry { viewModel.retry() }
+		connection.isVisible = state.hasConnection.not()
 	}
 
 	private fun onEventChanged(event: PokemonListViewModel.Event) {
