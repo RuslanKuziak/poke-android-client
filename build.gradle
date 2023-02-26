@@ -70,6 +70,18 @@ subprojects {
 
                 testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
             }
+
+            buildTypes {
+                debug {
+                    debuggable true
+                    minifyEnabled false
+                }
+                release {
+                    minifyEnabled true
+                    consumerProguardFiles 'consumer-rules.pro'
+                    proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                }
+            }
         }
     }
 

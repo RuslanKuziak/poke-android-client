@@ -13,6 +13,15 @@ android {
         versionName "1.0"
     }
 
+    signingConfigs {
+        release {
+            storeFile file("release.keystore")
+            storePassword "poke-android-assessment"
+            keyAlias "poke-android"
+            keyPassword "poke-android-assessment"
+        }
+    }
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -23,6 +32,7 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
