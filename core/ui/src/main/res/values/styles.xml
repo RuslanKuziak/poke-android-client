@@ -2,7 +2,7 @@
 <resources>
 
 	<style name="Widget.Poke.Text" parent="">
-		<item name="android:textColor">@color/black_light_alpha_50</item>
+		<item name="android:textColor">?android:textColorPrimary</item>
 		<item name="android:textSize">16sp</item>
 		<item name="android:gravity">center_vertical</item>
 		<item name="android:maxLines">1</item>
@@ -11,7 +11,7 @@
 
 	<style name="Widget.Poke.Text.Info" parent="Widget.Poke.Text">
 		<item name="android:textSize">16sp</item>
-		<item name="android:background">@color/gray_light</item>
+		<item name="android:background">?infoBackgroundColor</item>
 	</style>
 
 	<style name="Widget.Poke.Text.Title" parent="Widget.Poke.Text">
@@ -20,7 +20,7 @@
 	</style>
 
 	<style name="Widget.Poke.Text.Type" parent="Widget.Poke.Text">
-		<item name="android:textColor">@color/gray_light</item>
+		<item name="android:textColor">?android:textColorSecondary</item>
 		<item name="android:gravity">center_vertical|center_horizontal</item>
 		<item name="android:textSize">18sp</item>
 		<item name="android:textAllCaps">true</item>
@@ -28,7 +28,7 @@
 
 	<style name="Widget.Poke.Text.Message" parent="">
 		<item name="android:textSize">16sp</item>
-		<item name="android:textColor">@color/black_light_alpha_50</item>
+		<item name="android:textColor">?android:textColorPrimary</item>
 		<item name="android:gravity">center</item>
 	</style>
 

@@ -1,5 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-	<!-- Base application theme. -->
+<resources>
+
 	<style name="Theme.Poké" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
 		<item name="colorPrimary">@color/purple_500</item>
 		<item name="colorPrimaryVariant">@color/purple_700</item>
@@ -10,5 +10,17 @@
 		<item name="colorOnSecondary">@color/black</item>
 
 		<item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+		<item name="android:windowBackground">@color/white</item>
+
+		<item name="android:textColorPrimary">@color/black_light_alpha_50</item>
+		<item name="android:textColorSecondary">@color/white</item>
+		<item name="android:textColorTertiary">@color/gray_light</item>
+
+		<!-- Custom -->
+		<item name="infoBackgroundColor">@color/gray_light</item>
+		<item name="listDividerColor">@color/gallery</item>
+		<item name="tintIconColor">@color/black_light_alpha_50</item>
+
 	</style>
+
 </resources>

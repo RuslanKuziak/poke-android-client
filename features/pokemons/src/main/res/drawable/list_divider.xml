@@ -3,6 +3,6 @@
 
 	<shape>
 		<size android:height="1dp" />
-		<solid android:color="@color/gallery" />
+		<solid android:color="?listDividerColor" />
 	</shape>
 </inset>
