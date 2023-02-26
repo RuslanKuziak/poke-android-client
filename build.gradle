@@ -41,6 +41,7 @@ buildscript {
         // Testing
         jUnitVersion = '4.13.2'
         extjUnitVersion = '1.1.5'
+        mockWebServerVersion = '4.9.1'
     }
 
     dependencies {
