@@ -1,10 +1,10 @@
 # Overview
-This repository contains a source code for sample client Android application. The main focus is to showcase the architecture approach that author commonly uses during Android Software Development.
+This repository contains a source code for a sample client Android application. The main focus is to showcase the architecture approach that the author commonly uses during Android Software Development.
 App is based on [Poke API](https://pokeapi.co/) and communicates via REST with PokeAPI service;
 
 Please refer to [Architecture Overview](#architecture-overview) section for more architecture details.
 
-Please note that this is not and official sample app.
+Please note that this is not an official sample app.
 
 **Features**
 
@@ -60,8 +60,8 @@ The multi-module structure provides a clear separation of concerns as well as de
 
 **Unit tests**
 
-Data layer contains Unit Tests which cover Retrofit's API Service with requests.
-Navigate to core/data/src/test to view and run tests on your machine.
+The data layer contains Unit Tests that cover Retrofit's API Service with requests.
+Navigate to `core/data/src/test` to view and run tests on your machine.
 
 ### Technologies/libraries
 
@@ -85,7 +85,7 @@ Navigate to core/data/src/test to view and run tests on your machine.
 The project is already configured to run the app in release mode. 
 
 1. Navigate to `Build Variants` and select `release` configuration for `app` module. It will be applied automatically to all other modules.
-2. Select `Run` and wait until build finishes and .apk file is installed.
+2. Select `Run` and wait until the build finishes and .apk file is installed.
 3. Play with the app.
 
 ### Additional info
